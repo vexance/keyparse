@@ -76,43 +76,6 @@ if __name__ == '__main__':
     print(f'[=] Extracted keystrokes will be displayed on subsequent lines\n\n{message}\n')
 
 
-# id_urb_type_interrupt_in = b'\x80\xc1\x89\xaf\x28\x93\xff\xff\x43\x01'
-# urb_complete_packet_length = 72
-
-# packets = []
-# packet_data = []
-
-# with open('./initial_capture.pcapng', 'rb') as file:
-#     arr = file.read()
-#     start_index = arr.find(id_urb_type_interrupt_in)
-#     while start_index != -1:    
-#         urb_packet = arr[start_index : start_index + urb_complete_packet_length]
-#         start_index = arr.find(id_urb_type_interrupt_in, start_index + 1)
-#         packets.append(urb_packet)
-#         packet_data.append(urb_packet[63:71])
-
-# for capture in packet_data:
-#     if capture == b'\x00\x00\x00\x00\x00\x00\x00\x00': # Keystroke was released rather than entered
-#         packet_data.remove(capture)
-
-# def convert(byte_array):
-#     std_offset = 93 # difference between ascii 'a' and urb 'a' in the 4th data byte (97 vs 4)
-#     letter = byte_array[3] # 4 - 29 == a - z
-    
-#     offset = std_offset
-#     return chr(offset + letter)
-
-
-# msg = ''
-# for capture in packet_data:
-#     msg += convert(capture)
-    
-# print(msg)
-
-
 # Wireshark filter: !(usb.capdata == 00:00:00:00:00:00:00:00) && usb.urb_type == URB_COMPLETE && usb.transfer_type == URB_INTERRUPT
-
 # Packets containing data have the type URB_INTERRUPT in
 # These are designated by the byte sequence 0xffff9328af89c180
-
-# Next step is to determine if data is present. This is determined by byte 16 ( 00 indicates data, 3c indicates no data)
